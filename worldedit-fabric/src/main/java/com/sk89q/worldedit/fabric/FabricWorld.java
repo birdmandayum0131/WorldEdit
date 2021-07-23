@@ -327,14 +327,14 @@ public class FabricWorld extends AbstractWorld {
             ServerWorld originalWorld = (ServerWorld) getWorld();
             long seed = options.getSeed().orElse(originalWorld.getSeed());
             AccessorLevelProperties levelProperties = (AccessorLevelProperties)
-                originalWorld.getServer().getSaveProperties();
+                originalWorld.getLevelProperties();
             GeneratorOptions originalOpts = levelProperties.getGeneratorOptions();
 
             RegistryOps<NbtElement> nbtRegOps = RegistryOps.of(
                 NbtOps.INSTANCE,
                 ((ExtendedMinecraftServer) originalWorld.getServer())
                     .getServerResourceManager().getResourceManager(),
-                (DynamicRegistryManager.Impl) originalWorld.getServer().getRegistryManager()
+                originalWorld.getServer().getRegistryManager()
             );
             GeneratorOptions newOpts = GeneratorOptions.CODEC
                 .encodeStart(nbtRegOps, originalOpts)
